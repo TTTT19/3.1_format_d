@@ -23,7 +23,6 @@ def open_json():
     for item in data['rss']['channel']['items']:
         item_list = item.get('description').split(' ')
         for word_in_news in item_list:
-            print(word_in_news.lower())
             if len(word_in_news) >6: #слова менее 6 букв не попадают в словарь
                 if word_in_news.lower()  not in word:
                     d = {word_in_news.lower(): 1}
