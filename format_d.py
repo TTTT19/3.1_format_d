@@ -21,14 +21,15 @@ def open_json():
     # создаем словарь, где в слове больше 6 букв
     word = {}
     for item in data['rss']['channel']['items']:
-        item_list = item.get('title').split(' ')
+        item_list = item.get('description').split(' ')
         for word_in_news in item_list:
+            print(word_in_news.lower())
             if len(word_in_news) >6: #слова менее 6 букв не попадают в словарь
-                if word_in_news  not in word:
-                    d = {word_in_news: 1}
+                if word_in_news.lower()  not in word:
+                    d = {word_in_news.lower(): 1}
                     word.update(d)
                 else:
-                    d = {word_in_news: word[word_in_news]+1}
+                    d = {word_in_news.lower(): word[word_in_news.lower()]+1}
                     word.update(d)
     make_top(word)
 
@@ -38,17 +39,17 @@ def open_xml():
     tree = ET.parse(r"newsafr.xml")
     root = tree.getroot()
 
-    title = root.findall("channel/item/title")
+    title = root.findall("channel/item/description")
     word = {}
     for item in title:
         item_list = item.text.split(' ')
         for word_in_news in item_list:
             if len(word_in_news) >6: #слова менее 6 букв не попадают в словарь
-                if word_in_news not in word:
-                    d = {word_in_news: 1}
+                if word_in_news.lower() not in word:
+                    d = {word_in_news.lower(): 1}
                     word.update(d)
                 else:
-                    d = {word_in_news: word[word_in_news]+1}
+                    d = {word_in_news.lower(): word[word_in_news.lower()]+1}
                     word.update(d)
     make_top(word)
 
